@@ -47,7 +47,7 @@ app.post("/listings", async (req, res) => {
        res.status(400).send("Error saving the listing");
    }
 });
-
+ 
    
  //Edit Route
  app.get("/listings/:id/edit",async (req,res)=>{

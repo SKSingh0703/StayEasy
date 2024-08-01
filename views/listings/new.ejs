@@ -3,15 +3,15 @@
     <br><br>
     <h3 style=" display: flex; justify-content: center;">Create a New Listing</h3>
     <div class="col-8 offset-2">
-      <form action="/listings" method="post">
+      <form action="/listings" method="post"  >
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="listing[title]" placeholder="Enter Title" class="form-control">
+            <input  required type="text" name="listing[title]" placeholder="Enter Title" class="form-control">
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" name="listing[description]" id="" placeholder="Enter Description"></textarea>
+            <textarea required class="form-control" name="listing[description]" id="" placeholder="Enter Description"></textarea>
         </div>
 
         <div class="mb-3">
@@ -21,18 +21,18 @@
        <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input class="form-control" type="number" name="listing[price]" placeholder="Enter Price">
+            <input required class="form-control" type="number" name="listing[price]" placeholder="Enter Price">
         </div>
 
         <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>
-            <input class="form-control" type="text" name="listing[country]" placeholder="Enter Country Name">
+            <input required class="form-control" type="text" name="listing[country]" placeholder="Enter Country Name">
         </div>
     </div>
 
         <div class="mb-3">
             <label for="location" class="form-label">Location</label>
-            <input class="form-control" type="text" name="listing[location]" placeholder="Enter Location">
+            <input required class="form-control" type="text" name="listing[location]" placeholder="Enter Location">
         </div>
 
         

@@ -1,118 +1,88 @@
 <% layout("/layouts/boilerplate") %>
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
 
-        .row {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
+    <head>
+        <!-- Include Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
 
-        .col-8 {
-            max-width: 66.666667%;
-            flex: 0 0 66.666667%;
-        }
+    <body>
+        <div class="container my-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
 
-        .offset-2 {
-            margin-left: 16.666667%;
-        }
+                    <h3 class="mb-4">
+                        <%= listing.title %>
+                    </h3>
 
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
+                    <div class="card mb-4 listing-card">
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image"
+                            style="height: 50vh; object-fit: cover;">
+                        <div class="card-body">
+                            <!-- <p class="card-text"><%= listing.title %></p> -->
+                        </div>
+                    </div>
 
-        .card-img-top {
-            width: 100%;
-            height: 50vh;
-        }
+                    <ul class="list-unstyled">
+                        <li>
+                            <%= listing.description %>
+                        </li>
+                        <li>&#8377; <%= listing.price.toLocaleString("en-IN") %>
+                        </li>
+                        <li>
+                            <%= listing.location %>
+                        </li>
+                        <li>
+                            <%= listing.country %>
+                        </li>
+                    </ul>
 
-        .card-body {
-            padding: 15px;
-        }
+                    <div class="d-flex gap-2 mb-4">
+                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit</a>
+                        <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
 
-        .card-text {
-            font-size: 18px;
-            font-weight: bold;
-        }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+                <h4 class="mt-4">Leave a Review:</h4>
+                <form action="/listings/<%= listing.id %>/reviews" class="mb-5" method="post">
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <input type="range" min="1" max="5" id="rating" name="review[rating]"
+                            class="form-control-range">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comments</label>
+                        <textarea required class="form-control" name="review[comment]" id="comment" cols="30"
+                            rows="5"></textarea>
+                    </div>
+                    <button class="btn btn-primary">Submit</button>
+                </form>
+            </div>
 
-        ul li {
-            margin: 10px 0;
-        }
+            <hr>
+            <p> &nbsp; <b>All Reviews :</b></p>
+            <div class="container">
+                <div class="row">
+                    <% for (let review of listing.reviews) { %>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"> &nbsp; John Doe</h5>
+                                    <p class="card-text">&nbsp; <%= review.comment %>
+                                    </p>
+                                    <p class="card-text">&nbsp; <%= review.rating %> stars</p>
+                                </div>
 
-        .button-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-            border: 1px solid #007bff;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        a:hover {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        button {
-            padding: 5px 10px;
-            font-size: 16px;
-            cursor: pointer;
-            color: #fff;
-            background-color: #dc3545;
-            border: none;
-            border-radius: 5px;
-        }
-
-        button:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
-    <div class="row">
-        <div class="col-8 offset-2">
-
-            <h3>Listing Detail :</h3>
-
-            <div class="card">
-                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="LISTING_Image">
-                <div class="card-body">
-                    <p class="card-text"><%= listing.title %></p>
+                                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="m-3" method="post">
+                                    <button class="btn btn-sm btn-dark">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        <% } %>
                 </div>
             </div>
 
-            <ul>
-                <li><%= listing.title %></li>
-                <li><%= listing.description %></li>
-                <li>&#8377; <%= listing.price.toLocaleString("en-IN") %></li>
-                <li><%= listing.location %></li>
-                <li><%= listing.country %></li>
-            </ul>
 
-            <div class="button-container">
-                <a href="/listings/<%= listing._id %>/edit" method="get">Edit</a>
-                <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
-                    <button>Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
-
+    </body>

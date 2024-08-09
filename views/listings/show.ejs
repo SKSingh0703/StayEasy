@@ -35,16 +35,17 @@
                             <%= listing.country %>
                         </li>
                     </ul>
-
-                    <div class="d-flex gap-2 mb-4">
+                    <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+                    <div class="d-flex gap-2 mb-4 btns">
                         <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit</a>
                         <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
+                    <% } %>
                 </div>
 
-
+                <% if (currUser) { %>                
                 <h4 class="mt-4">Leave a Review:</h4>
                 <form action="/listings/<%= listing.id %>/reviews" class="mb-5" method="post">
                     <div class="form-group">
@@ -59,6 +60,7 @@
                     </div>
                     <button class="btn btn-primary">Submit</button>
                 </form>
+                <% } %>
             </div>
 
             <hr>
@@ -69,7 +71,7 @@
                         <div class="col-md-6 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title"> &nbsp; John Doe</h5>
+                                    <h5 class="card-title"> &nbsp; @<%= review.author.username %> </h5>
                                     <p class="card-text">&nbsp; <%= review.comment %>
                                     </p>
                                     <p class="card-text">&nbsp; <%= review.rating %> stars</p>

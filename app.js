@@ -52,6 +52,13 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req,res,next) =>{
+    res.locals.success=req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
+    next();
+})
+
 // Set view engine and middleware
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

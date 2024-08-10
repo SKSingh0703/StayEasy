@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !="production") {
+    require("dotenv").config();
+}
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -13,7 +17,8 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 const session = require('express-session');
-const flash = require('connect-flash'); // Import connect-flash
+const flash = require('connect-flash'); 
+
 
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/wanderlust';
@@ -27,6 +32,14 @@ main().then(() => {
 async function main() {
     await mongoose.connect(MONGO_URL);
 }
+
+// Set view engine and middleware
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname, "public")));
 
 // Configure session options
 const sessionOptions = {
@@ -57,19 +70,14 @@ app.use((req,res,next) =>{
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
     next();
-})
+}) 
 
-// Set view engine and middleware
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
-app.engine('ejs', ejsMate);
-app.use(express.static(path.join(__dirname, "public")));
+
 
 // Use routes
-app.use("/listings", listingRouter);
+
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/listings", listingRouter);
 app.use("/",userRouter)
 
 // Define routes

@@ -3,7 +3,7 @@
     <br><br>
     <h3 style=" display: flex; justify-content: center;">Create a New Listing</h3>
     <div class="col-8 offset-2">
-      <form action="/listings" method="post"  >
+      <form action="/listings" method="post" enctype="multipart/form-data" >
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input  required type="text" name="listing[title]" placeholder="Enter Title" class="form-control">
@@ -16,7 +16,11 @@
 
         <div class="mb-3">
             <label for="image" class="form-label">Image URL</label>
-            <input class="form-control" type="text" name="imageurl" placeholder="Image URL/Link">
+            <input class="form-control" type="text" name="listing[image]" placeholder="Image URL/Link">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label"> Upload Image</label>
+            <input class="form-control" type="file" name="listing[image]" >
         </div>
        <div class="row">
         <div class="mb-3 col-md-4">

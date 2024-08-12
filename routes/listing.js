@@ -27,7 +27,7 @@ router
 //Show route and update and delete request
 router.route("/:id")
    .get(wrapAsync(showListings) )
-   .put(isLoggedIn,isOwner,validateListing,wrapAsync(updateListing))
+   .put(isLoggedIn,isOwner,upload.single('listing[image]'),validateListing,wrapAsync(updateListing))
    .delete(isLoggedIn,isOwner,wrapAsync(deleteListing))
  
 //Edit Route

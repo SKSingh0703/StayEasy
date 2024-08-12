@@ -1,5 +1,8 @@
 <% layout("/layouts/boilerplate") %>
-
+    <script>
+        const mapToken="<%= process.env.MAP_TOKEN %>";
+        const listing = <%- JSON.stringify(listing) %>
+    </script>
     <head>
         <!-- Include Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -45,7 +48,8 @@
                     <% } %>
                 </div>
 
-                <% if (currUser) { %>                
+                <% if (currUser) { %> 
+                    <hr>               
                 <h4 class="mt-4">Leave a Review:</h4>
                 <form action="/listings/<%= listing.id %>/reviews" class="mb-5" method="post">
                     
@@ -77,8 +81,9 @@
             </div>
 
             <hr>
-            <p> &nbsp; <b>All Reviews :</b></p>
-            <div class="container">
+            <% if (listing.review.length>0) { %>
+            <div class="container col-8 offset-3 mb-3">
+                <p> &nbsp; <b>All Reviews :</b></p>
                 <div class="row">
                     <% for (let review of listing.reviews) { %>
                         <div class="col-md-6 mb-4">
@@ -100,6 +105,13 @@
                         <% } %>
                 </div>
             </div>
+            <% } %>
+            <div class="col-8 offset-3 mb-3 ">
+                <h3>Where you'll be </h3>
+                <div class="map"></div>
+            </div>
+            
 
 
     </body>
+<script src="/public/css/js/map.js" ></script>

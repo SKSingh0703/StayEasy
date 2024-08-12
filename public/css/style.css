@@ -81,3 +81,8 @@ body{
 .show-img{
     height: 30vh;
 }
+/* Map Styling */
+#map { 
+    height: 400px;
+    width: 80vh;
+}

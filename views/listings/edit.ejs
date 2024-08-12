@@ -3,7 +3,7 @@
     <br><br>
     <h3 style="display: flex; justify-content: center;">Edit your Listing</h3>
     <div class="col-8 offset-2">
-      <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+      <form enctype="multipart/form-data" action="/listings/<%= listing._id %>?_method=PUT" method="post">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input required type="text" name="listing[title]" value="<%= listing.title %>" placeholder="Enter Title" class="form-control">
@@ -15,8 +15,13 @@
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Image URL</label>
-            <input required class="form-control" type="text" name="listing[image]" value="<%= listing.image.url %>" placeholder="Image URL/Link">
+            Original listing image
+            <img src="<%= originalImageUrl %>" alt="">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input class="form-control" type="file" name="listing[image]"  placeholder="Image URL/Link">
         </div>
 
         <div class="row">

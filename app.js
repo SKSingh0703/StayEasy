@@ -41,6 +41,15 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configure passport-local
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Configure session options
 const sessionOptions = {
     secret: 'your-secret-key', // Change this to a secure, random string
@@ -54,16 +63,7 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));
-app.use(flash());
-
-// Initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Configure passport-local
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+app.use(flash()); 
 
 app.use((req,res,next) =>{
     res.locals.success=req.flash("success");
@@ -71,7 +71,7 @@ app.use((req,res,next) =>{
     res.locals.currUser = req.user;
     next();
 }) 
-
+ 
 
 
 // Use routes
@@ -80,10 +80,6 @@ app.use("/listings/:id/reviews", reviewRouter);
 app.use("/listings", listingRouter);
 app.use("/",userRouter)
 
-// Define routes
-// app.get("/", (req, res) => {
-//     res.send("Working");
-// });
 
 // Handle 404 errors
 app.all('*', (req, res, next) => {

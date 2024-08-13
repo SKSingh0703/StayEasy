@@ -23,7 +23,8 @@ module.exports.index = async (req,res)=>{
     })
     .populate("owner");
     if (!listing) {
-      req.flash("error","Listing you requested for does not exist")
+      req.flash("error","Listing you requested for does not exist");
+      res.redirect("/listings");
     }
     res.render("listings/show.ejs",{listing});
  };

@@ -81,9 +81,9 @@ app.use("/listings", listingRouter);
 app.use("/",userRouter)
 
 // Define routes
-app.get("/", (req, res) => {
-    res.send("Working");
-});
+// app.get("/", (req, res) => {
+//     res.send("Working");
+// });
 
 // Handle 404 errors
 app.all('*', (req, res, next) => {

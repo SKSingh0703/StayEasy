@@ -11,7 +11,7 @@ const ejsMate = require("ejs-mate");
 
 const listingRouter = require('./routes/listing.js');
 const reviewRouter = require("./routes/review.js");
-const userRouter = require('./models/user.js');
+const userRouter = require('./routes/user.js');
 
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -19,7 +19,9 @@ const User = require("./models/user.js");
 const session = require('express-session');
 const flash = require('connect-flash'); 
 
+const ExpressError = require('./utils/ExpressError.js'); // Import custom error class
 
+ 
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/wanderlust';
 
@@ -66,19 +68,20 @@ app.use(session(sessionOptions));
 app.use(flash()); 
 
 app.use((req,res,next) =>{
+    console.log("MiddleWare executed");
+    console.log("User:",req.user);
+    
     res.locals.success=req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
-    next();
-}) 
+    console.log(req); 
+    next(); 
+}) ;
  
-
-
 // Use routes
-
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/listings", listingRouter);
-app.use("/",userRouter)
+app.use("/",userRouter);
 
 
 // Handle 404 errors
@@ -96,3 +99,4 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
     console.log("Server is listening on port 8080");
 });
+ 

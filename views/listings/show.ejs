@@ -1,9 +1,11 @@
 <% layout("/layouts/boilerplate") %>
+    <head>
+    <link rel="stylesheet" href="../../public/css/rating.css">
     <script>
         const mapToken="<%= process.env.MAP_TOKEN %>";
-        const listing = <%- JSON.stringify(listing) %>
+        const listing = "<%= JSON.stringify(listing) %>";
     </script>
-    <head>
+    
         <!-- Include Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
@@ -112,6 +114,5 @@
             </div>
             
 
-
+            <script src="/public/css/js/map.js" ></script>
     </body>
-<script src="/public/css/js/map.js" ></script>

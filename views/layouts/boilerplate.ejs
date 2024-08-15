@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WanderLust</title>
     <link rel="icon" href="https://scontent.fpat3-3.fna.fbcdn.net/o1/v/t0/f1/m254/upload_img_26445730_07_31_2024_10_36_03_068168_590730520500008723.jpeg?_nc_ht=scontent.fpat3-3.fna.fbcdn.net&_nc_cat=110&ccb=9-4&oh=00_AYAFeHkt3hXTQx0I_74xAsh_SywRidDnvexABIc_7LeDHg&oe=66AC5CD9&_nc_sid=5b3566">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
      rel="stylesheet" 
      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
@@ -17,15 +17,18 @@
     <link rel="stylesheet" href="/public/css/rating.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
-</head>
+</head> 
 <body>
     <%- include("../includes/navbar.ejs") %>
-    <div class="container">
-        <%- include("../includes/flash.ejs") %>
-        <%- body %>
-    </div>
+
+<!-- Flash -->
+<div class="container">
+    <%- include("../includes/flash.ejs") %>
+    <%- body %>
+</div>
+    <!-- code -->
     <%- include("../includes/footer.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- <script src="/public/css/js/script.js"></script> -->
+    <script src="/public/css/js/script.js"></script>
 </body>
 </html>

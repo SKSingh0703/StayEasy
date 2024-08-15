@@ -21,8 +21,6 @@ const flash = require('connect-flash');
 
 const ExpressError = require('./utils/ExpressError.js'); // Import custom error class
 
- 
-
 const MONGO_URL = 'mongodb://127.0.0.1:27017/wanderlust';
 
 main().then(() => {
@@ -33,7 +31,7 @@ main().then(() => {
 
 async function main() {
     await mongoose.connect(MONGO_URL);
-}
+} 
 
 // Set view engine and middleware
 app.set("view engine", "ejs");
@@ -43,14 +41,6 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
-// Initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Configure passport-local
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // Configure session options
 const sessionOptions = {
@@ -63,9 +53,21 @@ const sessionOptions = {
         maxAge: 24 * 60 * 60 * 1000 // Cookie expiry time (24 hours)
     }
 };
-
 app.use(session(sessionOptions));
-app.use(flash()); 
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configure passport-local
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+
+
+
+app.use(flash());  
 
 app.use((req,res,next) =>{
     console.log("MiddleWare executed");
@@ -73,11 +75,17 @@ app.use((req,res,next) =>{
     
     res.locals.success=req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
+    res.locals.currUser = req.user; 
     console.log(req); 
     next(); 
 }) ;
- 
+
+app.get('/some-route', (req, res) => {
+    console.log("res.locals:", res.locals);
+    res.render('some-view'); 
+});
+
+   
 // Use routes
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/listings", listingRouter);

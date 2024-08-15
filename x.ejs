@@ -1,23 +1,25 @@
-<style>
-    .search-btn{
-        background-color: #fe424d;
-        color: white;
-        border-radius: 0 1rem 0 1rem;
-    }
-    .search-btn:hover{
-        background-color: #fe424d;
-        color: white;
-    }
-    .search-btn i{
-        display: inline;
-        margin-right: 0.5rem;
-    }
-    .search-inp{
-        border-radius: 25px;
-        padding: 0.5rem 3rem 0.5rem 3rem;
-        font-size: 0.8rem;
-    }
-</style>
+
+<!-- Page to store code before making changes -->
+
+<!-- Navbar -->
+<%- include("../includes/navbar.ejs") %>
+
+<!-- Flash -->
+<div class="container">
+    <%- include("../includes/flash.ejs") %>
+    <%- body %>
+</div>
+
+<!-- flash [age code] -->
+ 
+<% if (success && success.length>0) { %>
+    <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+    </div>
+    <% } %>
+
+<!-- Navbar previous code before changes -->
  
 
 <nav class="navbar navbar-expand-md bg-body-white border-bottom sticky-top">
@@ -45,11 +47,11 @@
 
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="/listings/new">AirBnb your home</a>
-                <% if (!locals.currUser) { %>
+                <% if (!currUser) { %>
                     <a class="nav-link " href="/signup"><b>SignUp</b></a>
                     <a class="nav-link" href="/login"><b>Login</b></a>
                 <% } %>
-                <% if (locals.currUser) { %>
+                <% if (currUser) { %>
                     <a class="nav-link" href="/logout"><b>LogOut</b></a>
                 <% } %>
                 

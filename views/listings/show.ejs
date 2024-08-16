@@ -1,16 +1,12 @@
 <% layout("/layouts/boilerplate") %>
-    <head>
-    <link rel="stylesheet" href="../../public/css/rating.css">
+    
     <script>
+        console.log("Hello");
         const mapToken="<%= process.env.MAP_TOKEN %>";
-        const listing = "<%= JSON.stringify(listing) %>";
+        console.log(mapToken);
+        const listing = <%- JSON.stringify(listing) %>;
     </script>
     
-        <!-- Include Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    </head>
-
-    <body>
         <div class="container my-4">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -110,9 +106,8 @@
             <% } %>
             <div class="col-8 offset-3 mb-3 ">
                 <h3>Where you'll be </h3>
-                <div class="map"></div>
+                <div id="map"></div>
             </div>
             
 
-            <script src="/public/css/js/map.js" ></script>
-    </body>
+            <script src="/js/map.js" ></script>

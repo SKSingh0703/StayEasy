@@ -23,7 +23,7 @@ module.exports.signup=async(req,res) =>{
         req.flash("error", "An error occurred during sign up.");
         res.redirect("/signup");
     }
-};
+};   
 
 module.exports.renderSignIn=(req,res) =>{
     res.render("users/login.ejs");

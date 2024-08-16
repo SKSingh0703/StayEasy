@@ -1,8 +1,12 @@
-
-
-<% if (locals.success && locals.success.length>0) { %>
+<% if (success && success.length>0) { %>
     <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-        <%= locals.success %>
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+    </div>
+    <% } %>
+<% if (error && error.length>0) { %>
+    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
+        <%= error %>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
     </div>
     <% } %>

@@ -70,14 +70,10 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(flash()); 
 
-app.use((req,res,next) =>{
-    console.log("MiddleWare executed");
-    console.log("User:",req.user);
-    
+app.use((req,res,next) =>{   
     res.locals.success=req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user;
-    console.log(req); 
     next(); 
 }) ;
  
@@ -94,7 +90,6 @@ app.all('*', (req, res, next) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.log(err.stack);
     let { statusCode = 500, message } = err;
     res.status(statusCode).render("error.ejs", { message });
 });

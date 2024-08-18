@@ -14,16 +14,18 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require('./routes/user.js');
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 const flash = require('connect-flash'); 
 
 const ExpressError = require('./utils/ExpressError.js'); // Import custom error class
- 
+const { error } = require("console");
+  
     
   
-const MONGO_URL = 'mongodb://127.0.0.1:27017/wanderlust';
+const dbUrl=process.env.ATLASDSB_URL;
 
 main().then(() => {
     console.log("Connected to DB");
@@ -32,7 +34,7 @@ main().then(() => {
 }); 
 
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 
 // Set view engine and middleware
@@ -43,8 +45,23 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
+
+const store =MongoStore.create({
+    mongoUrl:dbUrl,
+    crypto:{
+        secret:process.env.SECRET,
+    },
+    touchAfter:24*3600,
+});
+
+store.on("error",()=>{
+    console.log("ERROR in Mongo Session Store : " , err);
+    
+})
+
 const sessionOptions = {
-    secret: 'your-secret-key', // Change this to a secure, random string
+    store:store,
+    secret: process.env.SECRET, // Change this to a secure, random string
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -53,6 +70,7 @@ const sessionOptions = {
         maxAge: 24 * 60 * 60 * 1000 // Cookie expiry time (24 hours)
     }
 };
+
 
 // const session=require("express-session");
 app.use(session(sessionOptions));
